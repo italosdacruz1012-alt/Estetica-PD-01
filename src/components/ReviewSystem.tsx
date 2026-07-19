@@ -228,17 +228,29 @@ export default function ReviewSystem() {
           <p className="text-xs text-gray-400 text-center mb-4 leading-relaxed font-light">
             Já adquiriu o Pack Estética? Compartilhe sua experiência e ajude outros profissionais!
           </p>
-          <button
-            onClick={() => {
-              setShowForm(!showForm);
-              setSuccessMsg(false);
-            }}
-            className="w-full py-3.5 px-5 rounded-xl bg-gold-gradient text-aesthetic-dark font-black text-xs uppercase tracking-wider shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 cursor-pointer flex items-center justify-center gap-2"
-            id="write-review-btn"
-          >
-            <MessageSquare className="w-4 h-4" />
-            {showForm ? 'Fechar Formuário' : 'Avaliar Produto'}
-          </button>
+          <div className="w-full space-y-2">
+            <button
+              onClick={() => {
+                setShowForm(!showForm);
+                setSuccessMsg(false);
+              }}
+              className="w-full py-3.5 px-5 rounded-xl bg-gold-gradient text-aesthetic-dark font-black text-xs uppercase tracking-wider shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 cursor-pointer flex items-center justify-center gap-2"
+              id="write-review-btn"
+            >
+              <MessageSquare className="w-4 h-4" />
+              {showForm ? 'Fechar Formuário' : 'Avaliar Produto'}
+            </button>
+            {reviews.length > 0 && (
+              <button
+                onClick={() => saveReviews([])}
+                className="w-full py-2 px-4 rounded-xl border border-red-500/20 bg-red-500/10 text-red-400 font-bold text-xs uppercase tracking-wider shadow hover:bg-red-500/25 active:scale-[0.98] transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5"
+                id="clear-reviews-btn"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+                Zerar Avaliações
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
