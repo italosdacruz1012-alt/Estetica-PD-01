@@ -387,17 +387,6 @@ export default function App() {
             </p>
           </div>
 
-          {/* Internal Warning Notice as requested */}
-          <div className="mb-10 max-w-2xl mx-auto p-4 rounded-xl bg-yellow-500/5 border border-yellow-500/20 text-yellow-300 text-xs flex items-start gap-3">
-            <ShieldAlert className="w-5 h-5 flex-shrink-0 text-yellow-400" />
-            <div className="space-y-1">
-              <strong className="font-semibold uppercase tracking-wider">Aviso de Publicação (Apenas para o Administrador)</strong>
-              <p className="leading-relaxed opacity-90">
-                Os depoimentos abaixo são modelos demonstrativos provisórios estruturados para a página. Lembre-se de substituí-los por depoimentos reais, capturas de tela do WhatsApp ou avaliações autênticas enviadas por suas esteticistas e clientes antes de colocar a página em produção.
-              </p>
-            </div>
-          </div>
-
           {/* Testimonial Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8" id="testimonials-grid">
             {testimonialsData.map((testimonial, idx) => (
