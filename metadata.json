@@ -1,0 +1,6 @@
+{
+  "name": "Pack Estética - 50+ Posts Editáveis para Instagram",
+  "description": "Página de vendas moderna, responsiva e persuasiva para o Pack Estética com mais de 50 posts editáveis no Canva.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

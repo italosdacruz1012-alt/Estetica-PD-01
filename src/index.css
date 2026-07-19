@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  
+  --color-gold-50: #fefdf6;
+  --color-gold-100: #fcf6e2;
+  --color-gold-200: #faf0be;
+  --color-gold-300: #f2df95;
+  --color-gold-400: #e7ca69;
+  --color-gold-500: #c5a059; /* Elegant luxury gold */
+  --color-gold-600: #a7823f;
+  --color-gold-700: #88652d;
+  --color-gold-800: #684a20;
+  --color-gold-900: #4a3315;
+
+  --color-aesthetic-dark: #0a0813;
+  --color-aesthetic-purple: #130f26;
+  --color-aesthetic-indigo: #1b1535;
+  --color-aesthetic-beige: #f5f2eb;
+  --color-aesthetic-beigetext: #eae5d9;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-sans);
+    background-color: var(--color-aesthetic-dark);
+    color: #f3f4f6;
+  }
+}
+
+/* Custom visual utilities for luxury glow, gold text and borders */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #f5f2eb 0%, #ebce6a 50%, #c5a059 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-gold-gradient {
+  background: linear-gradient(135deg, #fce09c 0%, #c5a059 50%, #9c7836 100%);
+}
+
+.border-gold-gradient {
+  border-image: linear-gradient(to right, #c5a059, #fce09c, #a7823f) 1;
+}
+
+.glow-gold {
+  box-shadow: 0 0 25px -5px rgba(197, 160, 89, 0.35);
+}
+
+.glow-purple {
+  box-shadow: 0 0 40px -10px rgba(147, 51, 234, 0.2);
+}
+
+.glass-card {
+  background: rgba(19, 15, 38, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(197, 160, 89, 0.15);
+}
+
+.shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer-anim 4s infinite;
+}
+
+@keyframes shimmer-anim {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
