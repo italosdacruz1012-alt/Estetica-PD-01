@@ -27,6 +27,7 @@ import {
 import Hero from './components/Hero';
 import Carousel from './components/Carousel';
 import CheckoutModal from './components/CheckoutModal';
+import ReviewSystem from './components/ReviewSystem';
 import { featuresData, benefitsData, bonusData, testimonialsData, faqData } from './data';
 
 export default function App() {
@@ -387,56 +388,8 @@ export default function App() {
             </p>
           </div>
 
-          {/* Testimonial Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8" id="testimonials-grid">
-            {testimonialsData.map((testimonial, idx) => (
-              <motion.div
-                key={testimonial.id}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="p-8 rounded-3xl bg-aesthetic-purple/20 border border-white/5 flex flex-col justify-between relative group"
-                id={`testimonial-card-${testimonial.id}`}
-              >
-                {/* Visual Quote Icon Accent */}
-                <span className="absolute top-6 right-8 text-5xl font-serif text-gold-500/10 group-hover:text-gold-500/20 transition-colors pointer-events-none select-none">
-                  “
-                </span>
-
-                <div className="space-y-4 relative z-10">
-                  {/* Stars */}
-                  <div className="flex gap-1">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-gold-400 text-gold-400" />
-                    ))}
-                  </div>
-
-                  <p className="text-gray-300 text-sm leading-relaxed italic font-light">
-                    “{testimonial.quote}”
-                  </p>
-                </div>
-
-                {/* Profile Meta info */}
-                <div className="mt-8 pt-6 border-t border-white/5 flex items-center gap-4">
-                  <img
-                    src={testimonial.avatarUrl}
-                    alt={testimonial.name}
-                    className="w-12 h-12 rounded-full object-cover border border-gold-500/30"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div>
-                    <h4 className="font-serif font-bold text-sm text-gold-100">
-                      {testimonial.name}
-                    </h4>
-                    <p className="text-[11px] text-gray-500 font-sans tracking-wide">
-                      {testimonial.role}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          {/* Interactive Review and Rating System */}
+          <ReviewSystem />
 
         </div>
       </section>
