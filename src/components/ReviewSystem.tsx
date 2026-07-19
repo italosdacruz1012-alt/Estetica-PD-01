@@ -76,14 +76,14 @@ export default function ReviewSystem() {
     saveReviews(updated);
   };
 
-  // Combine testimonialsData with client reviews from localStorage
-  const allReviews = [...reviews, ...testimonialsData];
+  // Show only actual user reviews from localStorage
+  const allReviews = reviews;
 
   // Calculations for stats
   const totalReviews = allReviews.length;
-  const averageRating = (
-    allReviews.reduce((sum, r) => sum + r.rating, 0) / totalReviews
-  ).toFixed(1);
+  const averageRating = totalReviews > 0
+    ? (allReviews.reduce((sum, r) => sum + r.rating, 0) / totalReviews).toFixed(1)
+    : "5.0";
 
   // Distribution calculation
   const distribution = [0, 0, 0, 0, 0]; // 1 to 5 stars
@@ -411,81 +411,91 @@ export default function ReviewSystem() {
 
       {/* Render All Reviews (Both pre-existing and user-added) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8" id="testimonials-grid-enhanced">
-        {allReviews.map((testimonial, idx) => {
-          const isUserAdded = testimonial.id.startsWith('user-review-');
-          return (
-            <motion.div
-              key={testimonial.id}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: Math.min(idx * 0.1, 0.4) }}
-              className="p-8 rounded-3xl bg-aesthetic-purple/20 border border-white/5 flex flex-col justify-between relative group shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-sm hover:border-gold-500/10 transition-colors"
-              id={`testimonial-card-${testimonial.id}`}
-            >
-              {/* Visual Quote Icon Accent */}
-              <span className="absolute top-6 right-8 text-5xl font-serif text-gold-500/10 group-hover:text-gold-500/20 transition-colors pointer-events-none select-none">
-                “
-              </span>
+        {allReviews.length === 0 ? (
+          <div className="col-span-full py-12 px-4 text-center text-gray-400 bg-aesthetic-purple/5 border border-white/5 rounded-3xl space-y-3">
+            <MessageSquare className="w-8 h-8 mx-auto text-gold-400/60" />
+            <p className="text-sm font-light text-gold-200">Nenhuma avaliação enviada ainda.</p>
+            <p className="text-xs text-gray-500 max-w-xs mx-auto">
+              Seja a primeira pessoa a avaliar este produto clicando em "Avaliar Produto" acima!
+            </p>
+          </div>
+        ) : (
+          allReviews.map((testimonial, idx) => {
+            const isUserAdded = testimonial.id.startsWith('user-review-');
+            return (
+              <motion.div
+                key={testimonial.id}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: Math.min(idx * 0.1, 0.4) }}
+                className="p-8 rounded-3xl bg-aesthetic-purple/20 border border-white/5 flex flex-col justify-between relative group shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-sm hover:border-gold-500/10 transition-colors"
+                id={`testimonial-card-${testimonial.id}`}
+              >
+                {/* Visual Quote Icon Accent */}
+                <span className="absolute top-6 right-8 text-5xl font-serif text-gold-500/10 group-hover:text-gold-500/20 transition-colors pointer-events-none select-none">
+                  “
+                </span>
 
-              {/* Verified buyer badge or delete action */}
-              <div className="absolute top-6 left-8 flex items-center gap-1.5">
-                {isUserAdded ? (
-                  <button
-                    onClick={() => handleDelete(testimonial.id)}
-                    className="p-1.5 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20 hover:text-red-300 transition-colors cursor-pointer"
-                    title="Excluir minha avaliação"
-                  >
-                    <Trash2 className="w-3.5 h-3.5" />
-                  </button>
-                ) : (
-                  <div className="px-2 py-0.5 rounded bg-gold-500/10 border border-gold-500/20 text-[9px] font-bold text-gold-400 uppercase tracking-wider flex items-center gap-1">
-                    <ShieldCheck className="w-3 h-3 text-gold-400" /> Compra Verificada
-                  </div>
-                )}
-              </div>
-
-              <div className="space-y-4 relative z-10 pt-6">
-                {/* Stars */}
-                <div className="flex gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className={`w-4 h-4 ${
-                        i < testimonial.rating
-                          ? 'fill-gold-400 text-gold-400'
-                          : 'text-gray-700'
-                      }`}
-                    />
-                  ))}
+                {/* Verified buyer badge or delete action */}
+                <div className="absolute top-6 left-8 flex items-center gap-1.5">
+                  {isUserAdded ? (
+                    <button
+                      onClick={() => handleDelete(testimonial.id)}
+                      className="p-1.5 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20 hover:text-red-300 transition-colors cursor-pointer"
+                      title="Excluir minha avaliação"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  ) : (
+                    <div className="px-2 py-0.5 rounded bg-gold-500/10 border border-gold-500/20 text-[9px] font-bold text-gold-400 uppercase tracking-wider flex items-center gap-1">
+                      <ShieldCheck className="w-3 h-3 text-gold-400" /> Compra Verificada
+                    </div>
+                  )}
                 </div>
 
-                <p className="text-gray-300 text-sm leading-relaxed italic font-light">
-                  “{testimonial.quote}”
-                </p>
-              </div>
-
-              {/* Profile Meta info */}
-              <div className="mt-8 pt-6 border-t border-white/5 flex items-center gap-4">
-                <div className="relative">
-                  {renderAvatar(testimonial)}
-                  {/* Secondary hidden fallback inside DOM to guarantee graceful rendering */}
-                  <div className="hidden" style={{ display: 'none' }}>
-                    {renderFallbackAvatar(testimonial)}
+                <div className="space-y-4 relative z-10 pt-6">
+                  {/* Stars */}
+                  <div className="flex gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`w-4 h-4 ${
+                          i < testimonial.rating
+                            ? 'fill-gold-400 text-gold-400'
+                            : 'text-gray-700'
+                        }`}
+                      />
+                    ))}
                   </div>
-                </div>
-                <div>
-                  <h4 className="font-serif font-bold text-sm text-gold-100 flex items-center gap-1.5">
-                    {testimonial.name}
-                  </h4>
-                  <p className="text-[11px] text-gray-500 font-sans tracking-wide">
-                    {testimonial.role}
+
+                  <p className="text-gray-300 text-sm leading-relaxed italic font-light">
+                    “{testimonial.quote}”
                   </p>
                 </div>
-              </div>
-            </motion.div>
-          );
-        })}
+
+                {/* Profile Meta info */}
+                <div className="mt-8 pt-6 border-t border-white/5 flex items-center gap-4">
+                  <div className="relative">
+                    {renderAvatar(testimonial)}
+                    {/* Secondary hidden fallback inside DOM to guarantee graceful rendering */}
+                    <div className="hidden" style={{ display: 'none' }}>
+                      {renderFallbackAvatar(testimonial)}
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="font-serif font-bold text-sm text-gold-100 flex items-center gap-1.5">
+                      {testimonial.name}
+                    </h4>
+                    <p className="text-[11px] text-gray-500 font-sans tracking-wide">
+                      {testimonial.role}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })
+        )}
       </div>
     </div>
   );
