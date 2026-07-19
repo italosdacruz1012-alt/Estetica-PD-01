@@ -602,7 +602,7 @@ export default function App() {
             <div className="flex flex-wrap justify-center gap-6 text-gray-400 font-medium">
               <a href="#" className="hover:text-gold-400 transition" onClick={(e) => { e.preventDefault(); alert("Esses links são ilustrativos para fins de demonstração da página de vendas."); }}>Termos de Uso</a>
               <a href="#" className="hover:text-gold-400 transition" onClick={(e) => { e.preventDefault(); alert("Esses links são ilustrativos para fins de demonstração da página de vendas."); }}>Política de Privacidade</a>
-              <a href="#" className="hover:text-gold-400 transition" onClick={(e) => { e.preventDefault(); alert("Para suporte, envie e-mail para suporte@packestetica.com"); }}>Suporte / Contato</a>
+              <a href="mailto:suportdigitalpd@outlook.com.br" className="hover:text-gold-400 transition">Suporte / Contato</a>
             </div>
           </div>
 
