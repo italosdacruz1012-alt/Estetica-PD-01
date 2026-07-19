@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Sparkles, CheckCircle2, ChevronRight } from 'lucide-react';
+import aestheticPackCover from '../assets/images/aesthetic_pack_cover_1784438362854.jpg';
 
 interface HeroProps {
   onOpenCheckout: () => void;
@@ -53,7 +54,7 @@ export default function Hero({ onOpenCheckout }: HeroProps) {
       className={`relative w-full ${isDesktop ? 'max-w-[480px] lg:max-w-[520px]' : 'max-w-[420px] mx-auto lg:mx-0'} aspect-square rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(212,175,55,0.12)] border border-gold-500/10 hover:border-gold-500/30 transition-all duration-300 group ${isDesktop ? 'hidden lg:block' : 'lg:hidden'}`}
     >
       <img
-        src="/src/assets/images/aesthetic_pack_cover_1784438362854.jpg"
+        src={aestheticPackCover}
         alt="Pack Estética - 50+ Posts Editáveis no Canva"
         className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
         referrerPolicy="no-referrer"
